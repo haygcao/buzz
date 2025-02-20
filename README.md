@@ -1,148 +1,72 @@
+[[简体中文](readme/README.zh_CN.md)] <- 点击查看中文页面。
+
 # Buzz
 
-Transcribe and translate audio offline on your personal computer. Powered by OpenAI's [Whisper](https://github.com/openai/whisper).
+[Documentation](https://chidiwilliams.github.io/buzz/) | [Buzz Captions on the App Store](https://apps.apple.com/us/app/buzz-captions/id6446018936?mt=12&itsct=apps_box_badge&itscg=30200)
+
+Transcribe and translate audio offline on your personal computer. Powered by
+OpenAI's [Whisper](https://github.com/openai/whisper).
 
 ![MIT License](https://img.shields.io/badge/license-MIT-green)
 [![CI](https://github.com/chidiwilliams/buzz/actions/workflows/ci.yml/badge.svg)](https://github.com/chidiwilliams/buzz/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/github/chidiwilliams/buzz/branch/main/graph/badge.svg?token=YJSB8S2VEP)](https://codecov.io/github/chidiwilliams/buzz)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/chidiwilliams/buzz)
+[![Github all releases](https://img.shields.io/github/downloads/chidiwilliams/buzz/total.svg)](https://GitHub.com/chidiwilliams/buzz/releases/)
 
-![Buzz](./assets/buzz-banner.jpg)
+<blockquote>
+<p>Buzz is better on the App Store. Get a Mac-native version of Buzz with a cleaner look, audio playback, drag-and-drop import, transcript editing, search, and much more.</p>
+<a href="https://apps.apple.com/us/app/buzz-captions/id6446018936?mt=12&amp;itsct=apps_box_badge&amp;itscg=30200"><img src="https://toolbox.marketingtools.apple.com/api/badges/download-on-the-mac-app-store/black/en-us?size=250x83&amp;releaseDate=1679529600" alt="Download on the Mac App Store" /></a>
+</blockquote>
 
-## Features
-
-- Real-time transcription and translation from your computer's microphones to text ([Demo](https://www.loom.com/share/564b753eb4d44b55b985b8abd26b55f7))
-- Import audio and video files and export transcripts to TXT, SRT, and VTT ([Demo](https://www.loom.com/share/cf263b099ac3481082bb56d19b7c87fe))
+![Buzz](./buzz/assets/buzz-banner.jpg)
 
 ## Installation
 
-To install Buzz, download the [latest version](https://github.com/chidiwilliams/buzz/releases/latest) for your operating system. Buzz is available on **Mac** and **Windows**.
+**PyPI**:
 
-### Mac (macOS 11.7 and above)
+Install [ffmpeg](https://www.ffmpeg.org/download.html)
 
-- Download and open the `Buzz-x.y.z-dmg` file.
-- After the installation window opens, drag the Buzz icon into the folder to add Buzz to your Applications directory.
-
-### Windows
-
-- Download and run the `Buzz-x.y.z.exe` file.
-
-## How to use
-
-### Live Recording
-
-To start a live recording:
-
-- Select a recording task, language, quality, and microphone.
-- Click Record.
-
-| Field      | Options                                                                                                                                  | Default                     | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Task       | "Transcribe", "Translate"                                                                                                                | "Transcribe"                | "Transcribe" converts the input audio into text in the selected language, while "Translate" converts it into text in English.                                                                                                                                                                                                                                                                                     |
-| Language   | See [Whisper's documentation](https://github.com/openai/whisper#available-models-and-languages) for the full list of supported languages | "Detect Language"           | "Detect Language" will try to detect the spoken language in the audio based on the first few seconds. However, selecting a language is recommended (if known) as it will improve transcription quality in many cases.                                                                                                                                                                                             |
-| Quality    | "Very Low", "Low", "Medium", "High"                                                                                                      | "Low"                       | The transcription quality determines the Whisper model used for transcription. "Very Low" uses the "tiny" model; "Low" uses the "base" model; "Medium" uses the "small" model; and "High" uses the "medium" model. The larger models produce higher-quality transcriptions, but require more system resources. See [Whisper's documentation](https://github.com/openai/whisper#available-models-and-languages) for more information about the models. |
-| Microphone | [Available system microphones]                                                                                                           | [Default system microphone] | Microphone for recording input audio.                                                                                                                                                                                                                                                                                                                                                                             |
-
-[![Live Recording on Buzz](https://cdn.loom.com/sessions/thumbnails/564b753eb4d44b55b985b8abd26b55f7-with-play.gif)](https://www.loom.com/share/564b753eb4d44b55b985b8abd26b55f7 'Live Recording on Buzz')
-
-### Record audio playing from computer
-
-To record audio playing from an application on your computer, you may install an audio loopback driver (a program that lets you create virtual audio devices). The rest of this guide will use [BlackHole](https://github.com/ExistentialAudio/BlackHole) on Mac, but you can use other alternatives for your operating system (see [LoopBeAudio](https://nerds.de/en/loopbeaudio.html), [LoopBack](https://rogueamoeba.com/loopback/), and [Virtual Audio Cable](https://vac.muzychenko.net/en/)).
-
-1. Install [BlackHole via Homebrew](https://github.com/ExistentialAudio/BlackHole#option-2-install-via-homebrew)
-
-   ```shell
-   brew install blackhole-2ch
-   ```
-
-2. Open Audio MIDI Setup from Spotlight or from `/Applications/Utilities/Audio Midi Setup.app`.
-
-   ![Open Audio MIDI Setup from Spotlight](https://existential.audio/howto/img/spotlight.png)
-
-3. Click the '+' icon at the lower left corner and select 'Create Multi-Output Device'.
-
-   ![Create multi-output device](https://existential.audio/howto/img/createmulti-output.png)
-
-4. Add your default speaker and BlackHole to the multi-output device.
-
-   ![Screenshot of multi-output device](https://existential.audio/howto/img/multi-output.png)
-
-5. Select this multi-output device as your speaker (application or system-wide) to play audio into BlackHole.
-
-6. Open Buzz, select BlackHole as your microphone, and record as before to see transcriptions from the audio playing through BlackHole.
-
-## File import
-
-To import a file:
-
-- Click Import on the File menu (or **Command + O** on Mac, **Ctrl + O** on Windows).
-- Choose an audio or video file. Supported formats: "mp3", "wav", "m4a", "ogg", "mp4", "webm", "ogm".
-- Select a task, language, quality, and export format.
-- Click Run.
-
-| Field     | Options             | Default |
-| --------- | ------------------- | ------- |
-| Export As | "TXT", "SRT", "VTT" | "TXT"   |
-
-(See the [Live Recording section](#live-recording) for more information about the task, language, and quality settings.)
-
-[![Media File Import on Buzz](https://cdn.loom.com/sessions/thumbnails/cf263b099ac3481082bb56d19b7c87fe-with-play.gif)](https://www.loom.com/share/cf263b099ac3481082bb56d19b7c87fe 'Media File Import on Buzz')
-
-## Settings
-
-### Enable GGML inference
-
-_(Default: off)_
-
-Turn this on to use inference from [Whisper.cpp](https://github.com/ggerganov/whisper.cpp). Whisper.cpp runs faster than Whisper's original Python implementation but requires a different set of models for inference. The setting is also not available on Windows and with the "Detect Language" option; it should fall back to the original Whisper inference. See the [Whisper.cpp documentation](https://github.com/ggerganov/whisper.cpp) for more information.
-
-| Model | Link                                                               | SHA256                                                           |
-| ----- | ------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| tiny  | <https://ggml.buzz.chidiwilliams.com/ggml-model-whisper-tiny.bin>  | be07e048e1e599ad46341c8d2a135645097a538221678b7acdd1b1919c6e1b21 |
-| base  | <https://ggml.buzz.chidiwilliams.com/ggml-model-whisper-base.bin>  | 60ed5bc3dd14eea856493d334349b405782ddcaf0028d4b5df4088345fba2efe |
-| small | <https://ggml.buzz.chidiwilliams.com/ggml-model-whisper-small.bin> | 1be3a9b2063867b937e64e2ec7483364a79917e157fa98c5d94b5c1fffea987b |
-
-## Build/run locally
-
-To build/run Buzz locally from source, first install the dependencies:
-
-1. Clone the repository
-
-   ```shell
-   git clone --recurse-submodules https://github.com/chidiwilliams/buzz
-   ```
-
-2. Install [Poetry](https://python-poetry.org/docs/#installing-with-the-official-installer).
-
-3. Install the project dependencies.
-
-   ```shell
-   poetry install
-   ```
-
-4. (Optional) To use Whisper.cpp inference, run:
-
-   ```shell
-   make libwhisper.so
-   ```
-
-Then, to run:
+Install Buzz
 
 ```shell
-poetry run python main.py
+pip install buzz-captions
+python -m buzz
 ```
 
-To build:
+**macOS**:
+
+Install with [brew utility](https://brew.sh/)
 
 ```shell
-poetry run pyinstaller --noconfirm Buzz.spec
+brew install --cask buzz
 ```
 
-## FAQ
+Or download the `.dmg` from the [releases page](https://github.com/chidiwilliams/buzz/releases/latest).
 
-1. **Where are the models stored?**
+**Windows**:
 
-   The Whisper models are stored in `~/.cache/whisper`. The Whisper.cpp models are stored in `~/Library/Caches/Buzz` (Mac OS), `~/.cache/Buzz` (Unix), `C:\Users/<username>\AppData\Local\Buzz\Buzz\Cache` (Windows).
+Download and run the `.exe` from the [releases page](https://github.com/chidiwilliams/buzz/releases/latest).
 
-2. **What can I try if the transcription runs too slowly?**
+App is not signed, you will get a warning when you install it. Select `More info` -> `Run anyway`.
 
-   Try using a lower quality or turning on [GGML inference](#enable-ggml-inference).
+**Linux**:
+
+```shell
+sudo apt-get install libportaudio2 libcanberra-gtk-module libcanberra-gtk3-module
+sudo snap install buzz
+sudo snap connect buzz:audio-record
+sudo snap connect buzz:password-manager-service
+sudo snap connect buzz:removable-media
+```
+
+### Latest development version
+
+For info on how to get latest development version with latest features and bug fixes see [FAQ](https://chidiwilliams.github.io/buzz/docs/faq#9-where-can-i-get-latest-development-version).
+
+### Screenshots
+
+<img alt="File import" src="share/screenshots/buzz-1-import.png" width="18%"/>
+<img alt="Main screen" src="share/screenshots/buzz-2-main_screen.png" width="18%"/>
+<img alt="Preferences" src="share/screenshots/buzz-3-preferences.png" width="18%"/>
+<img alt="Transcript" src="share/screenshots/buzz-4-transcript.png" width="18%"/>
+<img alt="Live recording" src="share/screenshots/buzz-5-live_recording.png" width="18%"/>

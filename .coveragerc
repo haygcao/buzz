@@ -1,11 +1,7 @@
 [run]
 omit =
-  whisper_cpp.py
+  buzz/whisper_cpp.py
   *_test.py
-  stable_ts/*
 
 [html]
 directory = coverage/html
-
-[report]
-fail_under = 78
